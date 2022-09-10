@@ -1,0 +1,25 @@
+.Manage {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+
+    &__card {
+        width: 100%;
+        padding: 20px;
+        max-width: 400px;
+        border-radius: 5px;
+        background-color: #c9c9c938;
+
+        h2 {
+            margin-block: 10px;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+
+    &__extra {
+        margin-top: 20px;
+    }
+}

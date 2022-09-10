@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 import { plans } from "../utils/consts";
 
 import styles from "../styles/ChoosenPlan.module.scss";
+import axios from "../utils/axiosInstance";
 
 export default function ChoosenPlan({ plan }) {
+
+    const [loading, setLoading] = useState(false);
+
+    const subscribe = async () => {
+
+        setLoading(true);
+
+        try {
+
+            const { data } = await axios.post(
+                "/stripe/checkout-sessions", null
+            );
+
+            console.log(data);
+            return window.open(data.url, "_self");
+            
+        } catch (err) {
+            
+            console.error(err);
+        }
+
+        setLoading(false);
+    }
 
     return (
         <div className={styles.root}>
@@ -16,7 +40,7 @@ export default function ChoosenPlan({ plan }) {
                 <span> ${plan.price}/mo</span>
             </h1>
             <div className="row-div">
-                <div className="button">
+                <button className="button">
                     <Link
                         href={{
                             pathname: `/${plan.id}/checkout`,
@@ -25,17 +49,14 @@ export default function ChoosenPlan({ plan }) {
                     >
                         Local Payment
                     </Link>
-                </div>
-                <div className="button">
-                    <Link
-                        href={{
-                            pathname: `/${plan.id}/checkout`,
-                            query: { payment_method: "stripe" }
-                        }}
-                    >
-                        International Payment
-                    </Link>
-                </div>
+                </button>
+                <button 
+                    className="button" 
+                    disabled={loading}
+                    onClick={subscribe}
+                >
+                    {loading ? "Processing..." : "International Payment"}
+                </button>
             </div>
         </div>
     );

@@ -16,9 +16,25 @@ a {
 }
 
 button {
+	border: none;
+	outline: none;
+	cursor: pointer;
 	padding: 8px 16px;
 	border-radius: 4px;
 	margin-inline: 10px;
+}
+
+.container-wrapper {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.container {
+	width: 100%;
+	padding: 0 2rem;
+	max-width: 800px;
 }
 
 .button {
